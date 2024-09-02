@@ -1,8 +1,9 @@
 from flask import Flask, jsonify, request
 
-import langCodecs
+import langCodecs.executePython
 import langCodecs.executeC
 import langCodecs.executeJava
+
 
 app = Flask(__name__)
 
@@ -14,14 +15,14 @@ def ExecuteC():
     return jsonify({'received': Result})
 
 @app.route('/execute/python', methods=['POST'])
-def ExecuteC():
+def ExecutePython():
     token = request.headers.get('clientId')
     code = request.get_json()['code']
     Result=langCodecs.executePython.compileAndExecutePython(token,code)
     return jsonify({'received': Result})
 
 @app.route('/execute/java', methods=['POST'])
-def ExecuteC():
+def ExecuteJava():
     token = request.headers.get('clientId')
     code = request.get_json()['code']
     Result=langCodecs.executeJava.compileAndExecuteJava(token,code)
