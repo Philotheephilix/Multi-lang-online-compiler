@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from flask_cors import cross_origin
 
 import langCodecs.executePython
 import langCodecs.executeC
@@ -8,6 +9,8 @@ import langCodecs.executeJava
 app = Flask(__name__)
 
 @app.route('/execute/C', methods=['POST'])
+@cross_origin()
+
 def ExecuteC():
     token = request.headers.get('clientId')
     code = request.get_json()['code']
